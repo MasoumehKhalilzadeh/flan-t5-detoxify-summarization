@@ -48,31 +48,40 @@ We use the **[SAMSum dataset](https://huggingface.co/datasets/samsum)**, which c
 6. Use **PPO** to reward less-toxic outputs
 7. Repeat over 50 steps on 500 dialogue samples
 
+
+---
+
 **Here's everything we did, step by step:**
 
-🛠️ 1. Setting Things Up
+**🛠️ 1. Setting Things Up:**
+
 We started by installing and importing everything we needed — Hugging Face’s transformers, trl for PPO, peft for LoRA, datasets for the SAMSum dataset, and Detoxify to score toxicity.
 
-🧠 2. Loading the Model & Adding LoRA
+**🧠 2. Loading the Model & Adding LoRA:**
+
 We used google/flan-t5-base as the base summarization model.
 Instead of fine-tuning the whole thing, we added LoRA adapters — which makes training way faster and more memory-efficient.
 
 Then we wrapped the model with a value head so it could learn from reward signals using PPO.
 
-📚 3. Preparing the Dataset
+**📚 3. Preparing the Dataset:**
+
 We used the SAMSum dataset, which is full of everyday conversations and summaries.
 We cleaned and tokenized the data and batched it using a data loader to feed it into the model during training.
 
-🎯 4. Defining the Reward Function
+**🎯 4. Defining the Reward Function:**
+
 Here’s the cool part — instead of using traditional loss, we let the model learn from feedback.
 We used Detoxify to measure how toxic a generated summary was, and gave higher rewards to summaries that were more respectful and neutral.
 
 Reward = 1 - toxicity score
 
-⚙️ 5. Setting Up PPO
+**⚙️ 5. Setting Up PPO:**
+
 We configured PPO with a small learning rate and batch size, and connected it to our LoRA-augmented model. This let the model optimize its behavior based on the reward scores from Detoxify.
 
-🔁 6. Fine-Tuning with PPO
+**🔁 6. Fine-Tuning with PPO:**
+
 This is where the magic happened:
 
 The model generated summaries from dialogues.
@@ -85,7 +94,8 @@ The PPO trainer used this info to improve the model over time.
 
 We ran this loop for 50 training steps.
 
-📊 7. Evaluating the Results
+**📊 7. Evaluating the Results:**
+
 To see if it worked, we compared the toxicity of the generated summaries to the original human-written ones.
 
 ---
