@@ -1,4 +1,4 @@
-# 🚀 Detoxifying Summarization with FLAN-T5 + LoRA + PPO
+# Detoxifying Summarization with FLAN-T5 + LoRA + PPO
 
 This project fine-tunes Google's FLAN-T5 using **LoRA adapters** and **Reinforcement Learning (PPO)** to generate **less-toxic summaries** from dialogue data.
 
