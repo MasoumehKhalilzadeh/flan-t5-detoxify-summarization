@@ -98,4 +98,20 @@ To see if it worked, we compared the toxicity of the generated summaries to the 
 
 > A 5x reduction in average toxicity without any direct supervision.
 
+---
+
+## 🧪 How to Use
+
+```python
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from peft import PeftModel
+
+base = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
+model = PeftModel.from_pretrained(base, "your-username/lora-flan-t5-samsum-detoxified")
+tokenizer = AutoTokenizer.from_pretrained("your-username/lora-flan-t5-samsum-detoxified")
+
+input_text = "Summarize this dialogue: Hey, do you want to meet later today? Sure! What time works for you? Let's say 3pm at the café."
+inputs = tokenizer(input_text, return_tensors="pt").input_ids
+outputs = model.generate(inputs, max_new_tokens=60)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
