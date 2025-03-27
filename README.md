@@ -55,12 +55,12 @@ We use the **[SAMSum dataset](https://huggingface.co/datasets/samsum)**, which c
 
 **🛠️ 1. Setting Things Up:**
 
-We started by installing and importing everything we needed — Hugging Face’s transformers, trl for PPO, peft for LoRA, datasets for the SAMSum dataset, and Detoxify to score toxicity.
+We started by installing and importing everything we needed Hugging Face’s transformers, trl for PPO, peft for LoRA, datasets for the SAMSum dataset, and Detoxify to score toxicity.
 
 **🧠 2. Loading the Model & Adding LoRA:**
 
 We used google/flan-t5-base as the base summarization model.
-Instead of fine-tuning the whole thing, we added LoRA adapters — which makes training way faster and more memory-efficient.
+Instead of fine-tuning the whole thing, we added LoRA adapters, which makes training way faster and more memory-efficient.
 
 Then we wrapped the model with a value head so it could learn from reward signals using PPO.
 
@@ -71,7 +71,7 @@ We cleaned and tokenized the data and batched it using a data loader to feed it 
 
 **🎯 4. Defining the Reward Function:**
 
-Here’s the cool part — instead of using traditional loss, we let the model learn from feedback.
+Instead of using traditional loss, we let the model learn from feedback.
 We used Detoxify to measure how toxic a generated summary was, and gave higher rewards to summaries that were more respectful and neutral.
 
 Reward = 1 - toxicity score
