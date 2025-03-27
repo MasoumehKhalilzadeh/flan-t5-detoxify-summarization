@@ -1,0 +1,56 @@
+---
+license: mit
+tags:
+  - summarization
+  - detoxify
+  - flan-t5
+  - ppo
+  - reinforcement-learning
+  - lora
+  - safe-generation
+library_name: transformers
+pipeline_tag: text2text-generation
+model-index:
+  - name: FLAN-T5 + LoRA + PPO (Detoxified Summarizer)
+    results: []
+---
+
+# 🧠 FLAN-T5 + LoRA + PPO for Safer Dialogue Summarization
+
+This model fine-tunes [`google/flan-t5-base`](https://huggingface.co/google/flan-t5-base) using **LoRA adapters** and **Reinforcement Learning (PPO)** to reduce toxicity in generated summaries.
+
+It was trained on the [SAMSum dataset](https://huggingface.co/datasets/samsum) using [Detoxify](https://github.com/unitaryai/detoxify) as a reward function, encouraging the model to produce respectful, non-toxic outputs.
+
+---
+
+## ✨ Highlights
+
+- ✅ Fine-tuned with **PPO (Reinforcement Learning)**
+- ✅ Uses **LoRA** for lightweight parameter-efficient updates
+- ✅ Produces **low-toxicity** dialogue summaries
+- ✅ Works well for summarizing real-world chat conversations
+
+---
+
+## 📊 Results
+
+| Metric      | Reference Summary | Fine-Tuned Summary |
+|-------------|-------------------|---------------------|
+| Avg Toxicity | 0.0096           | **0.0020** ✅       |
+
+---
+
+## 🧪 How to Use
+
+```python
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from peft import PeftModel
+
+base = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
+model = PeftModel.from_pretrained(base, "your-username/lora-flan-t5-samsum-detoxified")
+tokenizer = AutoTokenizer.from_pretrained("your-username/lora-flan-t5-samsum-detoxified")
+
+input_text = "Summarize this dialogue: Hey, do you want to meet later today? Sure! What time works for you? Let's say 3pm at the café."
+inputs = tokenizer(input_text, return_tensors="pt").input_ids
+outputs = model.generate(inputs, max_new_tokens=60)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
