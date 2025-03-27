@@ -20,7 +20,7 @@ We use the [SAMSum dataset](https://huggingface.co/datasets/samsum) for training
 ## 💡 Motivation
 
 Even high-quality language models can generate biased or toxic outputs.  
-This project explores how to **fine-tune an LLM to reduce toxicity** while preserving summary quality — using reward-based learning instead of static loss functions.
+This project explores how to **fine-tune an LLM to reduce toxicity** while preserving summary quality using reward-based learning instead of static loss functions.
 
 ---
 
