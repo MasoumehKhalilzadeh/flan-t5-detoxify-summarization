@@ -82,17 +82,7 @@ We configured PPO with a small learning rate and batch size, and connected it to
 
 **🔁 6. Fine-Tuning with PPO:**
 
-This is where the magic happened:
-
-The model generated summaries from dialogues.
-
-We filtered out any empty or super short ones.
-
-Then we checked how toxic they were.
-
-The PPO trainer used this info to improve the model over time.
-
-We ran this loop for 50 training steps.
+The model generated summaries from dialogues. We filtered out any empty or super short ones. Then we checked how toxic they were. The PPO trainer used this info to improve the model over time. We ran this loop for 50 training steps.
 
 **📊 7. Evaluating the Results:**
 
